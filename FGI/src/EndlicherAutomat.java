@@ -1,0 +1,66 @@
+import java.util.List;
+import java.util.Set;
+
+public class EndlicherAutomat implements Automat {
+	private AutomatenZustand _startZustand;
+	private AutomatenZustand _aktuellerZustand;
+	private Set<String> _sprache;
+
+	
+	
+	/**
+	 * @param _startZustand
+	 * @param _sprache
+	 */
+	public EndlicherAutomat(AutomatenZustand _startZustand, Set<String> _sprache) {
+		this._startZustand = _startZustand;
+		this._sprache = _sprache;
+		_aktuellerZustand = _startZustand;
+	}
+
+	@Override
+	public AutomatenZustand getStartZustand() {
+		// TODO Auto-generated method stub
+		return _startZustand;
+	}
+
+	/**
+	 * Rekursive Methode die mithilfe eines Eingabewortes alle Zustände abläuft
+	 * 
+	 * @param wort das Eingabewort
+	 */
+	public void verarbeiteWort(String wort) {
+		if (_sprache.contains(wort)) {
+			wechsleZustand(wort);
+		}
+		if (!_aktuellerZustand.istEndZustand())
+		{
+			throw new Error("Automat nicht in einem Endzustand terminiert");
+		}
+	}
+
+	/**
+	 * Rekursive Methode die mithilfe eines Eingabewortes alle Zustände abläuft
+	 * 
+	 * @param wort das Eingabewort
+	 */
+	public void wechsleZustand(String wort) {
+		if (!wort.isEmpty()) {
+			char kante = wort.charAt(0);
+			_aktuellerZustand = _aktuellerZustand.folgeZustand(kante);
+			if (_aktuellerZustand == null) {
+				throw new Error("Automat frühzeitig abgebrochen");
+			} else {
+				wechsleZustand(wort.substring(1));
+			}
+		}
+
+	}
+
+	@Override
+	public List<AutomatenZustand> getEndZustand() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
