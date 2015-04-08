@@ -1,0 +1,7 @@
+
+public interface AutomatenZustand
+{
+    public AutomatenZustand folgeZustand();
+    public AutomatenZustand folgeZustand(char kante);
+
+}

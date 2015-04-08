@@ -1,0 +1,43 @@
+
+
+public class AutomatenZustand
+{
+	private AutomatenZustand[] _folgeZustaende;
+	private char[] _folgeKanten;
+	private boolean _istEndZustand;
+	
+	public AutomatenZustand()
+	{
+		_folgeZustaende = null;
+	}
+	
+   
+    /**
+     * Gibt den Folgezustand eines Automaten wieder indem an den Ausgangskanten gesucht wird
+     * 
+     * @param die Kante über den der Zustand errreichbar ist
+     * @return gibt den Folgezustand oder wenn nicht vorhanden null zurück
+     */
+    public AutomatenZustand folgeZustand(char kante)
+    {
+    	for (int i = 0; i < _folgeKanten.length; i++)
+    	{
+    		if (kante ==_folgeKanten[i])
+    		{
+    			return _folgeZustaende[i];
+    		}
+    	}
+    	return null;
+    }
+    
+    /**
+     * Gibt Zurück ob der Zustand ein definierter Endzustand ist
+     * @return
+     */
+    public boolean istEndZustand()
+    {
+    	return _istEndZustand;
+    }
+    
+
+}

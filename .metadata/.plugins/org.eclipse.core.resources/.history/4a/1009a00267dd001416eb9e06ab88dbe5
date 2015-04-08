@@ -1,0 +1,24 @@
+
+
+public class AutomatenZustand
+{
+	private AutomatenZustand[] _folgeZustaende;
+	
+	public AutomatenZustand()
+	{
+		_folgeZustaende = null;
+	}
+	
+    public AutomatenZustand folgeZustand()
+    {
+    	return null;
+    }
+    public AutomatenZustand folgeZustand(char kante)
+    {
+    	char ausgangsKante;
+    	
+    	
+    	
+    }
+
+}

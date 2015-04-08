@@ -1,0 +1,48 @@
+import java.util.List;
+import java.util.Set;
+
+public class EndlicherAutomat implements Automat
+{
+    private AutomatenZustand _startZustand;
+    private AutomatenZustand _aktuellerZustand;
+    private Set<String> _sprache;
+ 
+
+    @Override
+    public AutomatenZustand getStartZustand()
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    
+    public void verarbeiteWort(String wort)
+    {
+        if(_sprache.contains(wort))
+        {
+            wechsleZustand(wort);
+        }
+    }
+
+    /**
+     * Rekursive Methode die mithilfe eines Eingabewortes alle Zustände abläuft
+     * @param wort das Eingabewort
+     */
+    public void wechsleZustand(String wort)
+    {
+        if (!wort.isEmpty())
+            {
+            char kante = wort.charAt(0);
+            _aktuellerZustand = _aktuellerZustand.folgeZustand(kante);
+            wechsleZustand(wort.substring(1));
+            }
+        
+    }
+
+    @Override
+    public List<AutomatenZustand> getEndZustand()
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+}

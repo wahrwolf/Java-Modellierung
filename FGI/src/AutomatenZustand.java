@@ -54,6 +54,18 @@ public class AutomatenZustand
     	return _bezeichung;
     }
     
+    public boolean equals(Object object)
+    {
+    	if (object instanceof AutomatenZustand)
+    	{
+			AutomatenZustand zustand = (AutomatenZustand) object;
+			return _bezeichung.equals(zustand.toString());
+		}else{
+			return false;
+		}
+		
+    }
+    
     /**
      * fügt einen weiteren Folgezustand hinzu
      * @param zustand der nächste Zustand
