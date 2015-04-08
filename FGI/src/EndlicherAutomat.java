@@ -1,48 +1,11 @@
 import java.util.List;
-import java.util.Scanner;
 
 
 public class EndlicherAutomat implements Automat {
 	private AutomatenZustand _startZustand;
 	private AutomatenZustand _aktuellerZustand;
-	private boolean _reportToSystemOut;
+	private boolean _reportToSystemOut = true;
 	private String _sprache;
-
-	public static void main(String args[])
-	{	String line;
-		
-		AutomatenZustand z0 = new AutomatenZustand("z0",false);
-		AutomatenZustand z1 = new AutomatenZustand("z1",false);
-		AutomatenZustand z2 = new AutomatenZustand("z2",true);
-		
-		z0.addFolgeZustand(z1, '1');
-		z0.addFolgeZustand(z0, '0');
-		z1.addFolgeZustand(z2, '1');
-		z1.addFolgeZustand(z0, '0');
-		z2.addFolgeZustand(z2, '1');
-		z2.addFolgeZustand(z2, '0');
-		
-		EndlicherAutomat auto = new EndlicherAutomat(z0,"[01]*11[01]*");
-		
-		System.out.println("Eingabewort:");
-		line = readLine();
-		while(!line.isEmpty())
-		{
-			auto.verarbeiteWort(line);
-			System.out.println();
-			line=readLine();
-		}
-	}
-	
-	private static String readLine() {
-		String line;
-		System.out.print("$ ");
-        Scanner scanner = new Scanner(System.in);
-        line = scanner.nextLine();
-        scanner.close();
-        return line;
-    
-	}
 
 	/**
 	 * @param _startZustand
@@ -74,6 +37,9 @@ public class EndlicherAutomat implements Automat {
 	 */
 	public void verarbeiteWort(String wort) {
 		if (wort.matches(_sprache)) {
+			System.out.println("Starte bei "+_aktuellerZustand.toString() );
+			System.out.println("Formal: "+_aktuellerZustand.toString() +" " + wort );
+
 			wechsleZustand(wort);
 		}else{
 			reportError("Wort nicht in definierter Sprache enthalten");
@@ -102,9 +68,11 @@ public class EndlicherAutomat implements Automat {
 			if (_aktuellerZustand == null) {
 				reportError("Automat frühzeitig abgebrochen");
 			} else {
+				System.out.println("Betrete "+_aktuellerZustand.toString() + " über Kante " + kante);
+				System.out.println("Formal: "+_aktuellerZustand.toString() +" " + wort.substring(1) );
 				wechsleZustand(wort.substring(1));
 			}
-		}
+		} 
 
 	}
 

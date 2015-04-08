@@ -1,0 +1,42 @@
+import java.util.Scanner;
+
+
+public class uebung {
+	private String line;
+	
+
+
+	public static void main(String args[])
+	{	
+		
+		AutomatenZustand z0 = new AutomatenZustand("z0",false);
+		AutomatenZustand z1 = new AutomatenZustand("z1",false);
+		AutomatenZustand z2 = new AutomatenZustand("z2",true);
+		
+		z0.addFolgeZustand(z1, '1');
+		z0.addFolgeZustand(z0, '0');
+		z1.addFolgeZustand(z2, '1');
+		z1.addFolgeZustand(z0, '0');
+		z2.addFolgeZustand(z2, '1');
+		z2.addFolgeZustand(z2, '0');
+		
+		EndlicherAutomat auto = new EndlicherAutomat(z0,"[01]*11[01]*");
+		
+		System.out.println("Eingabewort:");
+		readLine();
+		while(!line.isEmpty())
+		{
+			auto.verarbeiteWort(line);
+			System.out.println();
+			readLine();
+		}
+	}
+	
+	private void readLine() {
+		System.out.print("$ ");
+        Scanner scanner = new Scanner(System.in);
+        line = scanner.nextLine();
+        scanner.close();
+    
+	}
+}
