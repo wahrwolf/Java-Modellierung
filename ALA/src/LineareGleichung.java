@@ -1,21 +1,19 @@
-import java.util.ArrayList;
-import java.util.List;
 
 public class LineareGleichung {
 	
 	//Array mit
-	private ArrayList<Term> _termeA;
-	private ArrayList<Term> _ergebnis;
+	private Term[] _termeA;
+	private Term[] _ergebnis;
 
-	public LineareGleichung() 
+	public LineareGleichung(int breite)
 	{
-		
+		_termeA = new Term[breite];
 	}
 	
 
 	public Object getKoeffizient(int index)
 	{
-		return _termeA.get(index).getKoeffizient();
+		return _termeA[index].getKoeffizient();
 	}
 	
 	public LineareGleichung multipliziere(double faktor)
@@ -28,7 +26,7 @@ public class LineareGleichung {
 		return this;
 	}
 	
-	public List<Term> getErgebnis()
+	public Term[] getErgebnis()
 	{
 		return _ergebnis;
 	}
@@ -41,5 +39,6 @@ public class LineareGleichung {
 		}
 		
 	}
+	
 
 }

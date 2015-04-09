@@ -35,11 +35,14 @@ public class Term {
 		_koeffizient *= faktor;
 	}
 	
-	public void addiere(Term summand)
+	public boolean addiere(Term summand)
 	{
 		if ( _variable.equals( summand.getVariable() ) )
 		{
 			_koeffizient += summand.getKoeffizient();
+			return true;
+		}else{
+			return false;
 		}
 	}
 }
