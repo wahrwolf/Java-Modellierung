@@ -1,0 +1,44 @@
+
+public class LineareGleichung {
+	
+	//Array mit
+	private Term[] _termeA;
+	private Term[] _ergebnis;
+
+	public LineareGleichung(int breite)
+	{
+		_termeA = new Term[breite];
+	}
+	
+
+	public Object getKoeffizient(int index)
+	{
+		return _termeA[index].getKoeffizient();
+	}
+	
+	public LineareGleichung multipliziere(double faktor)
+	{
+		for(Term koeffizient : _termeA)
+		{
+			koeffizient.multiplizieren(faktor);
+		}
+		
+		return this;
+	}
+	
+	public Term[] getErgebnis()
+	{
+		return _ergebnis;
+	}
+	
+	public void addiere(LineareGleichung summanden)
+	{
+		for(Term teilergebnis: summanden.getErgebnis())
+		{
+			
+		}
+		
+	}
+	
+
+}

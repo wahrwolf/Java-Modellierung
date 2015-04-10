@@ -20,21 +20,31 @@ public class LinearesGleichungsSystem {
 
 	}
 
-	public void gleichungenAddieren(int a, double aFaktor, int b, double bFaktor) {
-		LineareGleichung pufferA = _gleichungen[a].multipliziere(aFaktor);
-		LineareGleichung pufferB = _gleichungen[b].multipliziere(bFaktor);
+	public void gleichungenAddieren(int indexA, double aFaktor, int indexB, double bFaktor) {
+		LineareGleichung pufferA = _gleichungen[indexA].multipliziere(aFaktor,false);
+		LineareGleichung pufferB = _gleichungen[indexB].multipliziere(bFaktor,false);
 
 	}
 
 	public void Gauss() {
-		for (int i = 0; i < _spalten -1; i++) {
+		double inverses;
+		for (int i = 0; (i < _spalten - 1) && (i < _zeilen - 1); i++) {
 			// sortiere so dass gleichung[0].getKoeeffizient(0) != 0
-			
+			for (int j = i; _gleichungen[0].getKoeffizient(i) == 0
+					&& (j < _zeilen); j++) {
+				gleichungenVertauschen(0, j);
+			}
 
 			// teile gleichung[0].get(0) so das ==1
+			inverses = _gleichungen[i].getKoeffizient(i);
+			inverses = Math.pow(inverses, -1);
+			_gleichungen[i].multipliziere(inverses,true);
 
-			for (int j = i + 1; i < _zeilen -1; j++) {
-				// subtrahiere gleichung[0].get(0)*gleichung[i].get(0)
+			for (int j = i + 1; j < _zeilen - 1; j++) {
+				// subtrahiere
+				// gleichung[0].get(0)*gleichung[i].getKoeefizient(j)
+				gleichungenAddieren(j, 1, i, -1*_gleichungen[j].getKoeffizient(i));
+
 			}
 		}
 
@@ -43,11 +53,10 @@ public class LinearesGleichungsSystem {
 	public void gaussJordanVerfahren() {
 		this.Gauss();
 
-		for (int i = _zeilen-1; i > 0; i--)
-		{
-			for (int j = i-1; j>0;j--)
-			{
-				
+		for (int i = _zeilen - 1; i > 0; i--) {
+			for (int j = i - 1; j > 0; j--) {
+				// subrtahiere für alle gleichungen so dass in der spalte immer
+				// 0 ist
 			}
 		}
 	}

@@ -1,0 +1,67 @@
+
+public class LineareGleichung {
+	
+	//Array mit
+	private Term[] _termeA;
+	private Term[] _ergebnis;
+
+	public LineareGleichung(int breite)
+	{
+		_termeA = new Term[breite];
+	}
+	
+	
+	
+	/**
+	 * @param _termeA
+	 * @param _ergebnis
+	 */
+	public LineareGleichung(Term[] _termeA, Term[] _ergebnis) {
+		this._termeA = _termeA;
+		this._ergebnis = _ergebnis;
+	}
+
+
+
+	public double getKoeffizient(int index)
+	{
+		return _termeA[index].getKoeffizient();
+	}
+	
+	public LineareGleichung multipliziere(double faktor)
+	{
+		LineareGleichung puffer = new LineareGleichung(_termeA.clone(), _ergebnis.clone());
+		 puffer.multipliziere(faktor, true);
+		 return puffer;
+	}
+	public void multipliziere(double faktor, boolean foo)
+	{
+		for(Term koeffizient : _termeA)
+		{
+			koeffizient.multiplizieren(faktor);
+		}
+		
+		for(Term koeffizient : _ergebnis)
+		{
+			koeffizient.multiplizieren(faktor);
+		}
+		
+	
+	}
+	
+	public Term[] getErgebnis()
+	{
+		return _ergebnis;
+	}
+	
+	public void addiere(LineareGleichung summanden)
+	{
+		for(Term teilergebnis: summanden.getErgebnis())
+		{
+			
+		}
+		
+	}
+	
+
+}
