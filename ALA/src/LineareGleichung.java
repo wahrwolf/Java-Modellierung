@@ -23,18 +23,21 @@ public class LineareGleichung {
 	public double getKoeffizient(int index) {
 		return _termeA.get(index).getKoeffizient();
 	}
-	
+
 	/**
-	 * Multipliziert die Gleichung mit einem Faktor. 
-	 * Entspricht Skalar Multiplikation in einem Vektorraum
+	 * Multipliziert die Gleichung mit einem Faktor. Entspricht Skalar
+	 * Multiplikation in einem Vektorraum
 	 * 
-	 * @param faktor der Faktor mit dem die Gleichung multipliziert werden soll
-	 * @param writeable wenn true verändere diese Gleichung, sonst gib neue Gleichung
+	 * @param faktor
+	 *            der Faktor mit dem die Gleichung multipliziert werden soll
+	 * @param writeable
+	 *            wenn true verändere diese Gleichung, sonst gib neue Gleichung
 	 * @return
 	 */
 	public LineareGleichung multipliziere(double faktor, boolean writeable) {
 		if (!writeable) {
-			LineareGleichung puffer = new LineareGleichung(new ArrayList<Term>(_termeA),_ergebnis);
+			LineareGleichung puffer = new LineareGleichung(new ArrayList<Term>(
+					_termeA), _ergebnis);
 			puffer.multipliziere(faktor, true);
 			return puffer;
 		} else {
@@ -49,22 +52,51 @@ public class LineareGleichung {
 	public double getErgebnis() {
 		return _ergebnis;
 	}
-	
+
 	public List<Term> getKoeffizienten() {
 		return _termeA;
 	}
 
+	/**
+	 * 
+	 * @param summanden
+	 */
 	public void addiere(LineareGleichung summanden) {
 		_ergebnis += summanden.getErgebnis();
-		
-		for (Term summandQuelle : summanden.getKoeffizienten())
-		{
-			for(Term summandZiel: _termeA)
-			{ 
-				//todo termweise addition implentieren
+		boolean termVorhanden;
+
+		// iteriert über alle Terme der Quelle durch
+		for (Term summandQuelle : summanden.getKoeffizienten()) {
+			termVorhanden = false;
+			// und rechnet sie gegen alle Terme des Zieles
+			for (Term summandZiel : _termeA) {
+
+				// Solange wie der Term noch nicht hinzugefügt wurde
+				if (!termVorhanden) {
+					// prüfe ob er addiert werden kann
+					if (summandZiel.addiere(summandQuelle)) {
+						termVorhanden = true;
+					}
+				}
+			}
+			// wenn der term nicht addiert werden kann, füge ihn einfach ans
+			// ende der Liste
+			if (!termVorhanden) {
+				_termeA.add(summandQuelle);
 			}
 		}
-
 	}
 
+	public String toString() {
+		if (!_termeA.isEmpty()) {
+			String puffer = _termeA.get(0).toString();
+			for (Term term : _termeA) {
+				if (term != _termeA.get(0)) {
+					puffer = puffer + "+" + term.toString();
+				}
+			}
+			return puffer + " = " + _ergebnis;
+		}
+		return "";
+	}
 }

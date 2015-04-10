@@ -20,9 +20,11 @@ public class LinearesGleichungsSystem {
 
 	}
 
-	public void gleichungenAddieren(int indexA, double aFaktor, int indexB, double bFaktor) {
-		LineareGleichung pufferA = _gleichungen[indexA].multipliziere(aFaktor,false);
-		LineareGleichung pufferB = _gleichungen[indexB].multipliziere(bFaktor,false);
+	public void gleichungenAddieren(int indexQuelle, double aFaktor, int indexZiel, double bFaktor) {
+		LineareGleichung quelle = _gleichungen[indexQuelle].multipliziere(aFaktor,false);
+		LineareGleichung ziel = _gleichungen[indexZiel].multipliziere(bFaktor,true);
+		
+		ziel.addiere(quelle);
 
 	}
 
@@ -43,7 +45,7 @@ public class LinearesGleichungsSystem {
 			for (int j = i + 1; j < _zeilen - 1; j++) {
 				// subtrahiere
 				// gleichung[0].get(0)*gleichung[i].getKoeefizient(j)
-				gleichungenAddieren(j, 1, i, -1*_gleichungen[j].getKoeffizient(i));
+				gleichungenAddieren(i,_gleichungen[j].getKoeffizient(i),j,1);
 
 			}
 		}
@@ -58,6 +60,14 @@ public class LinearesGleichungsSystem {
 				// subrtahiere für alle gleichungen so dass in der spalte immer
 				// 0 ist
 			}
+		}
+	}
+	public void printAll()
+	{
+	
+		for (int i= 0; i< _zeilen; i++)
+		{
+			System.out.println(_gleichungen[i].toString());
 		}
 	}
 
