@@ -5,10 +5,11 @@ public class uebung {
 	public static void main(String args[])
 	{	
 		
-		AutomatenZustand zs = new AutomatenZustand("zs",false);
-		AutomatenZustand ze = new AutomatenZustand("ze",false);
-		AutomatenZustand z1 = new AutomatenZustand("z1",true);
-		AutomatenZustand z2 = new AutomatenZustand("z2",false);
+		AutomatenZustand zs = new AutomatenZustand("zs");
+		AutomatenZustand ze = new AutomatenZustand("ze");
+		AutomatenZustand z1 = new AutomatenZustand("z1");
+		AutomatenZustand z2 = new AutomatenZustand("z2");
+		
 
 		
 
@@ -21,7 +22,9 @@ public class uebung {
 		z2.addFolgeZustand(z1, '1');
 		z2.addFolgeZustand(ze, '0');
 		
-		EndlicherAutomat auto = new EndlicherAutomat(zs,"1(01)*");
+		DFA auto = new DFA(zs,".*");
+		
+		auto.addEndZustand(z2);
 		
 		auto.verarbeiteWort("10110");
 	}

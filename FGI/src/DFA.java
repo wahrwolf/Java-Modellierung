@@ -1,9 +1,11 @@
+import java.util.ArrayList;
 import java.util.List;
 
 
-public class EndlicherAutomat implements Automat {
+public class DFA implements Automat {
 	private AutomatenZustand _startZustand;
 	private AutomatenZustand _aktuellerZustand;
+	private List<AutomatenZustand> _endzustaende;
 	private boolean _reportToSystemOut = true;
 	private String _sprache;
 
@@ -11,13 +13,14 @@ public class EndlicherAutomat implements Automat {
 	 * @param _startZustand
 	 * @param _sprache
 	 */
-	public EndlicherAutomat(AutomatenZustand startZustand,String _sprache) {
+	public DFA(AutomatenZustand startZustand,String _sprache) {
 		this._startZustand = startZustand;
 		this._sprache = _sprache;
 		_aktuellerZustand = _startZustand;
+		_endzustaende = new ArrayList<AutomatenZustand>();
 	}
 	
-	public EndlicherAutomat(AutomatenZustand startZustand)
+	public DFA(AutomatenZustand startZustand)
 	{
 		_startZustand=startZustand;
 		_aktuellerZustand=_startZustand;
@@ -44,7 +47,7 @@ public class EndlicherAutomat implements Automat {
 		}else{
 			reportError("Wort nicht in definierter Sprache enthalten");
 		}
-		if (!_aktuellerZustand.istEndZustand())
+		if (_endzustaende.contains(_aktuellerZustand))
 		{
 			reportError("Automat nicht in einem Endzustand terminiert");
 		}else{
@@ -78,9 +81,19 @@ public class EndlicherAutomat implements Automat {
 
 	@Override
 	public List<AutomatenZustand> getEndZustand() {
-		// TODO Auto-generated method stub
-		return null;
+		return _endzustaende;
 	}
+	
+	public void addEndZustand(AutomatenZustand zustand)
+	{
+		_endzustaende.add(zustand);
+	}
+	
+	public String getSprache()
+	{
+		return _sprache;
+	}
+	
 	/**
 	 * Gibt in Abhängigkeit von _reportToSystemOut eine Fehlermeldung wieder
 	 * @param error die auszugebende Fehlermeldung

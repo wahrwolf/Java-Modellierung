@@ -7,14 +7,12 @@ public class AutomatenZustand
 {
 	private List<AutomatenZustand> _folgeZustaende;
 	private List<Character> _folgeKanten;
-	private boolean _istEndZustand;
 	private String _bezeichung;
 	
-	public AutomatenZustand(String bezeichung, boolean istEndzustand)
+	public AutomatenZustand(String bezeichung)
 	{
 		_folgeZustaende = new ArrayList<AutomatenZustand>();
 		_folgeKanten = new ArrayList<Character>();
-		_istEndZustand = istEndzustand;
 		_bezeichung = bezeichung;
 	}
 	
@@ -35,14 +33,6 @@ public class AutomatenZustand
     		}
     	}
     	return null;
-    }
-    
-    /**
-     * Gibt Zurück ob der Zustand ein definierter Endzustand ist
-     */
-    public boolean istEndZustand()
-    {
-    	return _istEndZustand;
     }
     
     /**
