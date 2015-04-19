@@ -1,9 +1,10 @@
-import java.util.List;
+import java.util.Set;
 
 
 public interface Automat
 {
     public AutomatenZustand getStartZustand();
-    public List<AutomatenZustand> getEndZustand();
+    public Set<AutomatenZustand> getEndZustand();
+	public void verarbeiteWort(String wort);
 
 }

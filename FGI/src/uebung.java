@@ -9,24 +9,24 @@ public class uebung {
 		AutomatenZustand ze = new AutomatenZustand("ze");
 		AutomatenZustand z1 = new AutomatenZustand("z1");
 		AutomatenZustand z2 = new AutomatenZustand("z2");
-		
-
-		
-
-		zs.addFolgeZustand(z1, '1');
-		zs.addFolgeZustand(ze, '0');
-		ze.addFolgeZustand(ze, '1');
-		ze.addFolgeZustand(ze, '0');
-		z1.addFolgeZustand(ze, '1');
-		z1.addFolgeZustand(z2, '0');
-		z2.addFolgeZustand(z1, '1');
-		z2.addFolgeZustand(ze, '0');
-		
+		AutomatenZustand zt = new AutomatenZustand("zt");
+	
 		DFA auto = new DFA(zs,".*");
+		
+		auto.addKante(zs, '1', ze);
+		auto.addKante(zs, '0', z1);
+		auto.addKante(z1, '1', ze);
+		auto.addKante(z1, '0', zt);
+		auto.addKante(z2, '1', ze);
+		auto.addKante(z2, '0', zt);
+		auto.addKante(ze, '1', ze);
+		auto.addKante(ze, '0', z2);
+		auto.addKante(zt, '1', zt);
+		auto.addKante(zt, '0', zt);
 		
 		auto.addEndZustand(z2);
 		
-		auto.verarbeiteWort("10110");
+		auto.verarbeiteWort("101101");
 	}
 	
 	

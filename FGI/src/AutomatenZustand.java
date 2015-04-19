@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 
@@ -8,11 +10,14 @@ public class AutomatenZustand
 	private List<AutomatenZustand> _folgeZustaende;
 	private List<Character> _folgeKanten;
 	private String _bezeichung;
+	private Set<AutomatenZustand> _lamdaZustaende;
+	
 	
 	public AutomatenZustand(String bezeichung)
 	{
 		_folgeZustaende = new ArrayList<AutomatenZustand>();
 		_folgeKanten = new ArrayList<Character>();
+		_lamdaZustaende = new HashSet<AutomatenZustand>();
 		_bezeichung = bezeichung;
 	}
 	
@@ -33,6 +38,27 @@ public class AutomatenZustand
     		}
     	}
     	return null;
+    }
+    
+    /**
+     * Gibt alle Folgezustände eines Automaten wieder indem an den Ausgangskanten 
+     * und den Lamda-Kanten gesucht wird
+     * 
+     * @param die Kante über den der Zustand errreichbar ist
+     * @return gibt eine Menge an Folgezuständen zurück
+     */
+    public Set<AutomatenZustand> folgeZustandmitLamda(char kante)
+    {
+    	
+    	Set<AutomatenZustand> puffer = new HashSet<AutomatenZustand>();
+    	for (AutomatenZustand zustand:_lamdaZustaende)
+    	{
+    		if(zustand.folgeZustand(kante) != null)
+    		{
+    			puffer.add(zustand.folgeZustand(kante));
+    		}
+    	}
+    	return puffer;
     }
     
     /**
@@ -67,5 +93,13 @@ public class AutomatenZustand
     	_folgeZustaende.add(zustand);
     }
     
+    /**
+     * fügt einen weiteren Lamda-Zustand hinzu
+     * @param zustand der über Lamda Zustand
+     */
+    public void addLamdaZustand(AutomatenZustand zustand)
+    {
+    	_lamdaZustaende.add(zustand);
+    }
 
 }
