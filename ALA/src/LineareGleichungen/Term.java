@@ -1,3 +1,4 @@
+package LineareGleichungen;
 public class Term {
 
 	private double _koeffizient;
@@ -21,7 +22,7 @@ public class Term {
 	}
 
 	public String toString() {
-		return "(" + _koeffizient + _variable + ")";
+		return "(" + _koeffizient + " * " + _variable + ")";
 	}
 
 	public void multiplizieren(double faktor) {

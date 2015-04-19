@@ -1,3 +1,4 @@
+package LineareGleichungen;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,8 +37,12 @@ public class LineareGleichung {
 	 */
 	public LineareGleichung multipliziere(double faktor, boolean writeable) {
 		if (!writeable) {
-			LineareGleichung puffer = new LineareGleichung(new ArrayList<Term>(
-					_termeA), _ergebnis);
+			ArrayList<Term> pufferListe = new ArrayList<Term>();
+			for(Term term: _termeA)
+			{
+				pufferListe.add(new Term(term.getKoeffizient(),term.getVariable()));
+			}
+			LineareGleichung puffer = new LineareGleichung(pufferListe, _ergebnis);
 			puffer.multipliziere(faktor, true);
 			return puffer;
 		} else {
@@ -86,6 +91,12 @@ public class LineareGleichung {
 			}
 		}
 	}
+	
+	public LineareGleichung(String gleichung)
+	{
+	
+	}
+	
 
 	public String toString() {
 		if (!_termeA.isEmpty()) {
@@ -98,5 +109,17 @@ public class LineareGleichung {
 			return puffer + " = " + _ergebnis;
 		}
 		return "";
+	}
+	
+	public int size()
+	{
+		return _termeA.size();
+	}
+	
+	public LineareGleichung clone()
+	{
+		LineareGleichung clone = new LineareGleichung(_termeA, _ergebnis);
+		
+		return clone;
 	}
 }

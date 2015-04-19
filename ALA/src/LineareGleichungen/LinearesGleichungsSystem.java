@@ -1,3 +1,4 @@
+package LineareGleichungen;
 public class LinearesGleichungsSystem {
 
 	private LineareGleichung[] _gleichungen;
@@ -6,6 +7,8 @@ public class LinearesGleichungsSystem {
 
 	public LinearesGleichungsSystem(LineareGleichung[] _gleichungen) {
 		this._gleichungen = _gleichungen;
+		_zeilen = _gleichungen.length;
+		_spalten = _gleichungen[0].size();
 	}
 
 	public Object getKoeffizent(int zeilenindex, int spaltenindex) {
@@ -21,7 +24,8 @@ public class LinearesGleichungsSystem {
 	}
 
 	public void gleichungenAddieren(int indexQuelle, double aFaktor, int indexZiel, double bFaktor) {
-		LineareGleichung quelle = _gleichungen[indexQuelle].multipliziere(aFaktor,false);
+		LineareGleichung quelle = _gleichungen[indexQuelle].clone() ;
+		quelle.multipliziere(aFaktor, true); //indexQuelle].multipliziere(aFaktor,false);
 		LineareGleichung ziel = _gleichungen[indexZiel].multipliziere(bFaktor,true);
 		
 		ziel.addiere(quelle);
@@ -30,25 +34,40 @@ public class LinearesGleichungsSystem {
 
 	public void Gauss() {
 		double inverses;
-		for (int i = 0; (i < _spalten - 1) && (i < _zeilen - 1); i++) {
+		double faktor;
+		for (int i = 0; (i < _spalten ) && (i < _zeilen ); i++) {
 			// sortiere so dass gleichung[0].getKoeeffizient(0) != 0
-			for (int j = i; _gleichungen[0].getKoeffizient(i) == 0
+			for (int j = i; _gleichungen[i].getKoeffizient(i) == 0
 					&& (j < _zeilen); j++) {
-				gleichungenVertauschen(0, j);
+				gleichungenVertauschen(i, j);
 			}
+			System.out.println("Gleichungen tauschen");
+			printAll();
 
 			// teile gleichung[0].get(0) so das ==1
 			inverses = _gleichungen[i].getKoeffizient(i);
 			inverses = Math.pow(inverses, -1);
+			System.out.println("Gleichungen normalisieren");
+			System.out.println("["+i+"]"+_gleichungen[i].toString() + "| *" + inverses);
 			_gleichungen[i].multipliziere(inverses,true);
-
-			for (int j = i + 1; j < _zeilen - 1; j++) {
+			System.out.println("["+i+"]"+_gleichungen[i].toString());
+			
+			faktor = 0;
+			System.out.println();
+			System.out.println("Gleichungen verrechnen");
+			for (int j = i + 1; j < _zeilen ; j++) {
 				// subtrahiere
 				// gleichung[0].get(0)*gleichung[i].getKoeefizient(j)
-				gleichungenAddieren(i,_gleichungen[j].getKoeffizient(i),j,1);
-
+				faktor = -1* _gleichungen[j].getKoeffizient(i);
+				System.out.println("["+j+"]"+_gleichungen[j].toString()+"| - gleichung["+i+"]"	+ " * "+faktor);
+				gleichungenAddieren(i,faktor,j,1);
+				System.out.println("["+j+"]"+_gleichungen[j].toString());
 			}
+			System.out.println();
 		}
+		System.out.println("End of Gauss");
+		
+		System.out.println();
 
 	}
 
@@ -67,8 +86,9 @@ public class LinearesGleichungsSystem {
 	
 		for (int i= 0; i< _zeilen; i++)
 		{
-			System.out.println(_gleichungen[i].toString());
+			System.out.println("["+i+"]"+_gleichungen[i].toString());
 		}
+		System.out.println();
 	}
 
 }

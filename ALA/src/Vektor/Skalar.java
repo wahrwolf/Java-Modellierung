@@ -1,5 +1,5 @@
 package Vektor;
 
-public interface Skalar {
+public class Skalar {
 
 }
