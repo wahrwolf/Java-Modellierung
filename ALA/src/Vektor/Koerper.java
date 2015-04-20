@@ -1,28 +1,37 @@
+package Vektor;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Set;
 
 
 public class Koerper implements Collection<Object>{
-	private Element _neutralesElementPlus;
-	private Element _neutralesElementMal;
+	public static final Element NEUTRALES_ELEMENT_PLUS = null;
+	public static final Element NEUTRALES_ELEMENT_MAL = null;
+	
+	private Set<Element> _koerperMenge;
 	private boolean _istFixiert;
 	
-	public Element gibInversesElementPlus(Element element)
+	public Koerper()
+	{
+		
+	}
+	
+	public static Element gibInversesElementPlus(Element element)
 	{
 		return null;
 	}
 	
-	public Element gibInversesElementMal(Element element)
+	public static Element gibInversesElementMal(Element element)
 	{
 		return null;
 	}
 	
-	public Element plus(Element summandA, Element summandB)
+	public static Element plus(Element summandA, Element summandB)
 	{
 		return null;
 	}
 	
-	public Element mal(Element faktorA, Element faktorB)
+	public static Element mal(Element faktorA, Element faktorB)
 	{
 		return null;
 	}
